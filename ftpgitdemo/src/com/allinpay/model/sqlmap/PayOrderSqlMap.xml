@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="PayOrder">
+	<!-- 别名 -->
+    <typeAlias alias="payOrder" type="com.allinpay.model.PayOrder"/>
+	<!-- 查询结果集 -->
+    <resultMap id="payOrderResult" class="payOrder">
+        <result property="orderId" column="ORDER_ID"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="requesId" column="REQUES_ID"/>
+        <result property="transTime" column="TRANS_TIME"/>
+        <result property="transAmount" column="TRANS_AMOUNT"/>
+        <result property="succAmount" column="SUCC_AMOUNT"/>
+        <result property="cryType" column="CRY_TYPE"/>
+        <result property="payType" column="PAY_TYPE"/>
+        <result property="status" column="STATUS"/>
+        <result property="orderChnl" column="ORDER_CHNL"/>
+        <result property="orderType" column="ORDER_TYPE"/>
+        <result property="tradeMode" column="TRADE_MODE"/>
+        <result property="tradeType" column="TRADE_TYPE"/>
+        <result property="orderFrom" column="ORDER_FROM"/>
+        <result property="payCustUserId" column="PAY_CUST_USER_ID"/>
+        <result property="payCustName" column="PAY_CUST_NAME"/>
+        <result property="payCustAcct" column="PAY_CUST_ACCT"/>
+        <result property="payCustCardNo" column="PAY_CUST_CARD_NO"/>
+        <result property="colCustUserId" column="COL_CUST_USER_ID"/>
+        <result property="colCustName" column="COL_CUST_NAME"/>
+        <result property="colCustAcct" column="COL_CUST_ACCT"/>
+        <result property="colCustCardNo" column="COL_CUST_CARD_NO"/>
+        <result property="tradeNo" column="TRADE_NO"/>
+        <result property="tardeName" column="TARDE_NAME"/>
+        <result property="extOrderNo" column="EXT_ORDER_NO"/>
+        <result property="frozenAmount" column="FROZEN_AMOUNT"/>
+        <result property="frozenTime" column="FROZEN_TIME"/>
+        <result property="refundTime" column="REFUND_TIME"/>
+        <result property="refundAmount" column="REFUND_AMOUNT"/>
+        <result property="refundTimes" column="REFUND_TIMES"/>
+        <result property="comamt" column="COMAMT"/>
+        <result property="operNo" column="OPER_NO"/>
+        <result property="backUp" column="BACK_UP"/>
+        <result property="lastUpdateTime" column="LAST_UPDATE_TIME"/>
+        <result property="lastStatus" column="LAST_STATUS"/>
+        <result property="ipAddr" column="IP_ADDR"/>
+        <result property="transPassword" column="TRANS_PASSWORD"/>
+        <result property="payCardIssCode" column="PAY_CARD_ISS_CODE"/>
+        <result property="payCardIssDsp" column="PAY_CARD_ISS_DSP"/>
+        <result property="colCardIssCode" column="COL_CARD_ISS_CODE"/>
+        <result property="colCardIssDsp" column="COL_CARD_ISS_DSP"/>
+        <result property="payCardType" column="PAY_CARD_TYPE"/>
+        <result property="colCardType" column="COL_CARD_TYPE"/>
+        <result property="companyId" column="COMPANY_ID"/>
+        <result property="payCustomerUrl" column="PAY_CUSTOMER_URL"/>
+        <result property="serverUrl" column="SERVER_URL"/>
+        <result property="termCode" column="TERM_CODE"/>
+        <result property="referenceNo" column="REFERENCE_NO"/>
+        <result property="sysTraceNo" column="SYS_TRACE_NO"/>
+        <result property="allinpayOrderId" column="ALLINPAY_ORDER_ID"/>
+        <result property="soid" column="SOID"/>
+        <result property="fileName" column="FILE_NAME"/>
+        <result property="apsSequence" column="APS_SEQUENCE"/>
+        <result property="withdrawSequence" column="WITHDRAW_SEQUENCE"/>
+        <result property="reverseSequence" column="REVERSE_SEQUENCE"/>
+        <result property="innerCode" column="INNER_CODE"/>
+        <result property="dealResult" column="DEAL_RESULT"/>
+        <result property="cashPay" column="CASH_PAY"/>
+        <result property="packageId" column="PACKAGE_ID"/>
+        <result property="orderNo" column="ORDER_NO"/>
+        <result property="payerReferrerUrl" column="PAYER_REFERRER_URL"/>
+        <result property="cardBin" column="CARD_BIN"/>
+        <result property="authCode" column="AUTH_CODE"/>
+        <result property="returnCode" column="RETURN_CODE"/>
+    </resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="commonColumns">
+	    <![CDATA[
+        	ORDER_ID ,
+        	CREATE_TIME ,
+        	REQUES_ID ,
+        	TRANS_TIME ,
+        	TRANS_AMOUNT ,
+        	SUCC_AMOUNT ,
+        	CRY_TYPE ,
+        	PAY_TYPE ,
+        	STATUS ,
+        	ORDER_CHNL ,
+        	ORDER_TYPE ,
+        	TRADE_MODE ,
+        	TRADE_TYPE ,
+        	ORDER_FROM ,
+        	PAY_CUST_USER_ID ,
+        	PAY_CUST_NAME ,
+        	PAY_CUST_ACCT ,
+        	PAY_CUST_CARD_NO ,
+        	COL_CUST_USER_ID ,
+        	COL_CUST_NAME ,
+        	COL_CUST_ACCT ,
+        	COL_CUST_CARD_NO ,
+        	TRADE_NO ,
+        	TARDE_NAME ,
+        	EXT_ORDER_NO ,
+        	FROZEN_AMOUNT ,
+        	FROZEN_TIME ,
+        	REFUND_TIME ,
+        	REFUND_AMOUNT ,
+        	REFUND_TIMES ,
+        	COMAMT ,
+        	OPER_NO ,
+        	BACK_UP ,
+        	LAST_UPDATE_TIME ,
+        	LAST_STATUS ,
+        	IP_ADDR ,
+        	TRANS_PASSWORD ,
+        	PAY_CARD_ISS_CODE ,
+        	PAY_CARD_ISS_DSP ,
+        	COL_CARD_ISS_CODE ,
+        	COL_CARD_ISS_DSP ,
+        	PAY_CARD_TYPE ,
+        	COL_CARD_TYPE ,
+        	COMPANY_ID ,
+        	PAY_CUSTOMER_URL ,
+        	SERVER_URL ,
+        	TERM_CODE ,
+        	REFERENCE_NO ,
+        	SYS_TRACE_NO ,
+        	ALLINPAY_ORDER_ID ,
+        	SOID ,
+        	FILE_NAME ,
+        	APS_SEQUENCE ,
+        	WITHDRAW_SEQUENCE ,
+        	REVERSE_SEQUENCE ,
+        	INNER_CODE ,
+        	DEAL_RESULT ,
+        	CASH_PAY ,
+        	PACKAGE_ID ,
+        	ORDER_NO ,
+        	PAYER_REFERRER_URL ,
+        	CARD_BIN ,
+        	AUTH_CODE ,
+        	RETURN_CODE 
+	    ]]>
+	</sql>
+	<!-- 动态查询条件 -->
+	<sql id="dynamicWhere">
+	    <dynamic prepend="WHERE">
+	       <isNotEmpty prepend="AND" property="orderId">
+	             ORDER_ID = #orderId#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="createTime">
+	             CREATE_TIME = #createTime#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="requesId">
+	             REQUES_ID = #requesId#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="transTime">
+	             TRANS_TIME = #transTime#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="transAmount">
+	             TRANS_AMOUNT = #transAmount#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="succAmount">
+	             SUCC_AMOUNT = #succAmount#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="cryType">
+	             CRY_TYPE = #cryType#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="payType">
+	             PAY_TYPE = #payType#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="status">
+	             STATUS = #status#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="orderChnl">
+	             ORDER_CHNL = #orderChnl#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="orderType">
+	             ORDER_TYPE = #orderType#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="tradeMode">
+	             TRADE_MODE = #tradeMode#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="tradeType">
+	             TRADE_TYPE = #tradeType#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="orderFrom">
+	             ORDER_FROM = #orderFrom#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="payCustUserId">
+	             PAY_CUST_USER_ID = #payCustUserId#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="payCustName">
+	             PAY_CUST_NAME = #payCustName#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="payCustAcct">
+	             PAY_CUST_ACCT = #payCustAcct#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="payCustCardNo">
+	             PAY_CUST_CARD_NO = #payCustCardNo#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="colCustUserId">
+	             COL_CUST_USER_ID = #colCustUserId#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="colCustName">
+	             COL_CUST_NAME = #colCustName#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="colCustAcct">
+	             COL_CUST_ACCT = #colCustAcct#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="colCustCardNo">
+	             COL_CUST_CARD_NO = #colCustCardNo#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="tradeNo">
+	             TRADE_NO = #tradeNo#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="tardeName">
+	             TARDE_NAME = #tardeName#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="extOrderNo">
+	             EXT_ORDER_NO = #extOrderNo#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="frozenAmount">
+	             FROZEN_AMOUNT = #frozenAmount#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="frozenTime">
+	             FROZEN_TIME = #frozenTime#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="refundTime">
+	             REFUND_TIME = #refundTime#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="refundAmount">
+	             REFUND_AMOUNT = #refundAmount#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="refundTimes">
+	             REFUND_TIMES = #refundTimes#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="comamt">
+	             COMAMT = #comamt#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="operNo">
+	             OPER_NO = #operNo#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="backUp">
+	             BACK_UP = #backUp#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="lastUpdateTime">
+	             LAST_UPDATE_TIME = #lastUpdateTime#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="lastStatus">
+	             LAST_STATUS = #lastStatus#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="ipAddr">
+	             IP_ADDR = #ipAddr#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="transPassword">
+	             TRANS_PASSWORD = #transPassword#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="payCardIssCode">
+	             PAY_CARD_ISS_CODE = #payCardIssCode#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="payCardIssDsp">
+	             PAY_CARD_ISS_DSP = #payCardIssDsp#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="colCardIssCode">
+	             COL_CARD_ISS_CODE = #colCardIssCode#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="colCardIssDsp">
+	             COL_CARD_ISS_DSP = #colCardIssDsp#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="payCardType">
+	             PAY_CARD_TYPE = #payCardType#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="colCardType">
+	             COL_CARD_TYPE = #colCardType#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="companyId">
+	             COMPANY_ID = #companyId#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="payCustomerUrl">
+	             PAY_CUSTOMER_URL = #payCustomerUrl#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="serverUrl">
+	             SERVER_URL = #serverUrl#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="termCode">
+	             TERM_CODE = #termCode#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="referenceNo">
+	             REFERENCE_NO = #referenceNo#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="sysTraceNo">
+	             SYS_TRACE_NO = #sysTraceNo#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="allinpayOrderId">
+	             ALLINPAY_ORDER_ID = #allinpayOrderId#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="soid">
+	             SOID = #soid#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="fileName">
+	             FILE_NAME = #fileName#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="apsSequence">
+	             APS_SEQUENCE = #apsSequence#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="withdrawSequence">
+	             WITHDRAW_SEQUENCE = #withdrawSequence#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="reverseSequence">
+	             REVERSE_SEQUENCE = #reverseSequence#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="innerCode">
+	             INNER_CODE = #innerCode#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="dealResult">
+	             DEAL_RESULT = #dealResult#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="cashPay">
+	             CASH_PAY = #cashPay#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="packageId">
+	             PACKAGE_ID = #packageId#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="orderNo">
+	             ORDER_NO = #orderNo#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="payerReferrerUrl">
+	             PAYER_REFERRER_URL = #payerReferrerUrl#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="cardBin">
+	             CARD_BIN = #cardBin#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="authCode">
+	             AUTH_CODE = #authCode#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="returnCode">
+	             RETURN_CODE = #returnCode#
+	       </isNotEmpty>
+	    </dynamic>	
+	</sql>
+	<!-- 增加记录 -->
+    <insert id="insert" parameterClass="payOrder">
+    <![CDATA[
+        INSERT INTO
+        PAY_ORDER (
+        	ORDER_ID ,
+        	CREATE_TIME ,
+        	REQUES_ID ,
+        	TRANS_TIME ,
+        	TRANS_AMOUNT ,
+        	SUCC_AMOUNT ,
+        	CRY_TYPE ,
+        	PAY_TYPE ,
+        	STATUS ,
+        	ORDER_CHNL ,
+        	ORDER_TYPE ,
+        	TRADE_MODE ,
+        	TRADE_TYPE ,
+        	ORDER_FROM ,
+        	PAY_CUST_USER_ID ,
+        	PAY_CUST_NAME ,
+        	PAY_CUST_ACCT ,
+        	PAY_CUST_CARD_NO ,
+        	COL_CUST_USER_ID ,
+        	COL_CUST_NAME ,
+        	COL_CUST_ACCT ,
+        	COL_CUST_CARD_NO ,
+        	TRADE_NO ,
+        	TARDE_NAME ,
+        	EXT_ORDER_NO ,
+        	FROZEN_AMOUNT ,
+        	FROZEN_TIME ,
+        	REFUND_TIME ,
+        	REFUND_AMOUNT ,
+        	REFUND_TIMES ,
+        	COMAMT ,
+        	OPER_NO ,
+        	BACK_UP ,
+        	LAST_UPDATE_TIME ,
+        	LAST_STATUS ,
+        	IP_ADDR ,
+        	TRANS_PASSWORD ,
+        	PAY_CARD_ISS_CODE ,
+        	PAY_CARD_ISS_DSP ,
+        	COL_CARD_ISS_CODE ,
+        	COL_CARD_ISS_DSP ,
+        	PAY_CARD_TYPE ,
+        	COL_CARD_TYPE ,
+        	COMPANY_ID ,
+        	PAY_CUSTOMER_URL ,
+        	SERVER_URL ,
+        	TERM_CODE ,
+        	REFERENCE_NO ,
+        	SYS_TRACE_NO ,
+        	ALLINPAY_ORDER_ID ,
+        	SOID ,
+        	FILE_NAME ,
+        	APS_SEQUENCE ,
+        	WITHDRAW_SEQUENCE ,
+        	REVERSE_SEQUENCE ,
+        	INNER_CODE ,
+        	DEAL_RESULT ,
+        	CASH_PAY ,
+        	PACKAGE_ID ,
+        	ORDER_NO ,
+        	PAYER_REFERRER_URL ,
+        	CARD_BIN ,
+        	AUTH_CODE ,
+        	RETURN_CODE 
+        ) VALUES (
+        	#orderId# ,
+        	#createTime# ,
+        	#requesId# ,
+        	#transTime# ,
+        	#transAmount# ,
+        	#succAmount# ,
+        	#cryType# ,
+        	#payType# ,
+        	#status# ,
+        	#orderChnl# ,
+        	#orderType# ,
+        	#tradeMode# ,
+        	#tradeType# ,
+        	#orderFrom# ,
+        	#payCustUserId# ,
+        	#payCustName# ,
+        	#payCustAcct# ,
+        	#payCustCardNo# ,
+        	#colCustUserId# ,
+        	#colCustName# ,
+        	#colCustAcct# ,
+        	#colCustCardNo# ,
+        	#tradeNo# ,
+        	#tardeName# ,
+        	#extOrderNo# ,
+        	#frozenAmount# ,
+        	#frozenTime# ,
+        	#refundTime# ,
+        	#refundAmount# ,
+        	#refundTimes# ,
+        	#comamt# ,
+        	#operNo# ,
+        	#backUp# ,
+        	#lastUpdateTime# ,
+        	#lastStatus# ,
+        	#ipAddr# ,
+        	#transPassword# ,
+        	#payCardIssCode# ,
+        	#payCardIssDsp# ,
+        	#colCardIssCode# ,
+        	#colCardIssDsp# ,
+        	#payCardType# ,
+        	#colCardType# ,
+        	#companyId# ,
+        	#payCustomerUrl# ,
+        	#serverUrl# ,
+        	#termCode# ,
+        	#referenceNo# ,
+        	#sysTraceNo# ,
+        	#allinpayOrderId# ,
+        	#soid# ,
+        	#fileName# ,
+        	#apsSequence# ,
+        	#withdrawSequence# ,
+        	#reverseSequence# ,
+        	#innerCode# ,
+        	#dealResult# ,
+        	#cashPay# ,
+        	#packageId# ,
+        	#orderNo# ,
+        	#payerReferrerUrl# ,
+        	#cardBin# ,
+        	#authCode# ,
+        	#returnCode# 
+        )
+    ]]>
+    </insert>
+	<!-- 修改记录 -->
+    <update id="update" parameterClass="payOrder">
+    <![CDATA[
+        UPDATE PAY_ORDER SET
+	        CREATE_TIME = #createTime# ,
+	        REQUES_ID = #requesId# ,
+	        TRANS_TIME = #transTime# ,
+	        TRANS_AMOUNT = #transAmount# ,
+	        SUCC_AMOUNT = #succAmount# ,
+	        CRY_TYPE = #cryType# ,
+	        PAY_TYPE = #payType# ,
+	        STATUS = #status# ,
+	        ORDER_CHNL = #orderChnl# ,
+	        TRADE_MODE = #tradeMode# ,
+	        TRADE_TYPE = #tradeType# ,
+	        ORDER_FROM = #orderFrom# ,
+	        PAY_CUST_USER_ID = #payCustUserId# ,
+	        PAY_CUST_NAME = #payCustName# ,
+	        PAY_CUST_ACCT = #payCustAcct# ,
+	        PAY_CUST_CARD_NO = #payCustCardNo# ,
+	        COL_CUST_USER_ID = #colCustUserId# ,
+	        COL_CUST_NAME = #colCustName# ,
+	        COL_CUST_ACCT = #colCustAcct# ,
+	        COL_CUST_CARD_NO = #colCustCardNo# ,
+	        TRADE_NO = #tradeNo# ,
+	        TARDE_NAME = #tardeName# ,
+	        EXT_ORDER_NO = #extOrderNo# ,
+	        FROZEN_AMOUNT = #frozenAmount# ,
+	        FROZEN_TIME = #frozenTime# ,
+	        REFUND_TIME = #refundTime# ,
+	        REFUND_AMOUNT = #refundAmount# ,
+	        REFUND_TIMES = #refundTimes# ,
+	        COMAMT = #comamt# ,
+	        OPER_NO = #operNo# ,
+	        BACK_UP = #backUp# ,
+	        LAST_UPDATE_TIME = #lastUpdateTime# ,
+	        LAST_STATUS = #lastStatus# ,
+	        IP_ADDR = #ipAddr# ,
+	        TRANS_PASSWORD = #transPassword# ,
+	        PAY_CARD_ISS_CODE = #payCardIssCode# ,
+	        PAY_CARD_ISS_DSP = #payCardIssDsp# ,
+	        COL_CARD_ISS_CODE = #colCardIssCode# ,
+	        COL_CARD_ISS_DSP = #colCardIssDsp# ,
+	        PAY_CARD_TYPE = #payCardType# ,
+	        COL_CARD_TYPE = #colCardType# ,
+	        COMPANY_ID = #companyId# ,
+	        PAY_CUSTOMER_URL = #payCustomerUrl# ,
+	        SERVER_URL = #serverUrl# ,
+	        TERM_CODE = #termCode# ,
+	        REFERENCE_NO = #referenceNo# ,
+	        SYS_TRACE_NO = #sysTraceNo# ,
+	        ALLINPAY_ORDER_ID = #allinpayOrderId# ,
+	        SOID = #soid# ,
+	        FILE_NAME = #fileName# ,
+	        APS_SEQUENCE = #apsSequence# ,
+	        WITHDRAW_SEQUENCE = #withdrawSequence# ,
+	        REVERSE_SEQUENCE = #reverseSequence# ,
+	        INNER_CODE = #innerCode# ,
+	        DEAL_RESULT = #dealResult# ,
+	        CASH_PAY = #cashPay# ,
+	        PACKAGE_ID = #packageId# ,
+	        ORDER_NO = #orderNo# ,
+	        PAYER_REFERRER_URL = #payerReferrerUrl# ,
+	        CARD_BIN = #cardBin# ,
+	        AUTH_CODE = #authCode# ,
+	        RETURN_CODE = #returnCode# 
+        WHERE 
+	        ORDER_ID = #orderId# and
+	        ORDER_TYPE = #orderType# 
+    ]]>
+    </update>
+	<!-- 删除记录 -->
+    <delete id="delete" >
+    <![CDATA[
+        delete from PAY_ORDER where
+        ORDER_ID = #orderId# and
+        ORDER_TYPE = #orderType# 
+    ]]>
+    </delete>
+    <!-- 查询记录，根据主键值 -->
+    <select id="getById" resultMap="payOrderResult">
+	    select <include refid="commonColumns"/>
+	    <![CDATA[
+	        from PAY_ORDER 
+	        where 
+		        ORDER_ID = #orderId# and
+		        ORDER_TYPE = #orderType# 
+	    ]]>
+    </select>
+    <!-- 查询记录 根据特定条件 -->
+    <select id="select"  resultMap="payOrderResult" parameterClass="java.util.Map">
+       select <include refid="commonColumns"/> from PAY_ORDER 
+		<include refid="dynamicWhere"/>    
+    </select>
+    
+	 <!-- 查询记录数 根据特定条件 -->
+    <select id="count" resultClass="long">
+    <![CDATA[
+        select count(*) from PAY_ORDER
+    ]]>
+		<include refid="dynamicWhere"/>    
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 #offset#,#pageSize#,#lastRows# 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="pageSelect" resultMap="payOrderResult">
+    	select <include refid="commonColumns"/>
+	    <![CDATA[
+	        from PAY_ORDER 
+	    ]]>
+		<include refid="dynamicWhere"/>
+		<dynamic prepend="ORDER BY">
+			<isNotEmpty property="sortColumns">$sortColumns$</isNotEmpty>
+		</dynamic>
+    </select>
+	
+	
+</sqlMap>
