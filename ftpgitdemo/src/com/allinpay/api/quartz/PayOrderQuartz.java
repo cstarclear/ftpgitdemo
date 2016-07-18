@@ -26,7 +26,7 @@ import com.jcraft.jsch.SftpException;
 /** 
 * @author jinwf
 
-* @date : 2013-11-20 
+* @date : 2016-7-18 
 * @version : 1.0
 * 
 */
