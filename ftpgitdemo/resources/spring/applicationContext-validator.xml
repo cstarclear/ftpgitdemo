@@ -23,10 +23,5 @@
  		<property name="messageSource" ref="messageSource"/>		
  	</bean>
     
-    <!-- 用于持有Validator,可以将Validator当做静态方法调用方法,示例:ValidatorHolder.validate() -->
-    <bean class="javacommon.validator.ValidatorHolder" >
-    	<property name="validator" ref="validator"></property>
-    </bean>
-     
     
 </beans>

@@ -33,5 +33,17 @@ public class PayOrderDao extends BaseIbatisDao{
 	public java.util.List<PayOrder> findAll(java.util.Map conditions){
 		return getSqlMapClientTemplate().queryForList("PayOrder.select", conditions);
 	}
+	
+	public PayOrder insert(PayOrder payOrder){
+		return (PayOrder)getSqlMapClientTemplate().insert("PayOrder.insert", payOrder);
+	}
+	
+	public int update(PayOrder payOrder){
+		return getSqlMapClientTemplate().update("PayOrder.update", payOrder);
+	}
+	
+	public PayOrder getById(PayOrderPk pk){
+		return (PayOrder)getSqlMapClientTemplate().queryForObject("PayOrder.insert", pk);
+	}
 
 }

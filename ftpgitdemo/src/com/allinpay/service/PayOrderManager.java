@@ -14,6 +14,7 @@ import javacommon.base.EntityDao;
 
 import com.allinpay.dao.*;
 import com.allinpay.model.PayOrder;
+import com.allinpay.model.PayOrderPk;
 
 /**
  * PayOrder 的基本的业务流程逻辑的接口,实现业务流程的控制;继承了基本的CRUD方法.
@@ -41,4 +42,17 @@ public class PayOrderManager extends BaseManager{
 	public java.util.List<PayOrder> findAll(java.util.Map conditions){
 		return payOrderDao.findAll(conditions);
 	}
+	
+	public PayOrder insert(PayOrder payOrder){
+		return payOrderDao.insert(payOrder);
+	}
+	
+	public int update(PayOrder payOrder){
+		return payOrderDao.update(payOrder);
+	}
+	
+	public PayOrder getById(PayOrderPk pk){
+		return payOrderDao.getById(pk);
+	}
+
 }

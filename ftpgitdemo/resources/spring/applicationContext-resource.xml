@@ -22,20 +22,6 @@
 		<property name="password" value="${jdbc.password}" />
 	</bean>
 	
-		<!-- 数据源定义,使用Apache DBCP 连接池 -->
-	<bean id="dataSourceTerm" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-		<property name="driverClassName" value="${jdbcterm.driver}"/>
-		<property name="url" value="${jdbcterm.url}"/>
-		<property name="username" value="${jdbcterm.username}"/>
-		<property name="password" value="${jdbcterm.password}"/>
-		<property name="maxActive" value="20" />
-		<property name="maxIdle" value="10" />
-		<property name="maxWait" value="1000" />
-		<property name="removeAbandoned" value="true"/>
-		<property name="removeAbandonedTimeout" value="180"/>
-		<property name="logAbandoned" value="true"/> 
-	</bean>
-
 	<!-- 以AspectJ方式 定义 AOP -->
 	<aop:config proxy-target-class="true">
 		<aop:advisor pointcut="execution(* javacommon.base.BaseManager.*(..))" advice-ref="txAdvice" />
